@@ -1,0 +1,7 @@
+---
+# handlers file for ntp
+# NTP
+- name: restart ntp
+  service:
+    name: ntp
+    state: restarted

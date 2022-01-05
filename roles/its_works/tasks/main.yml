@@ -1,0 +1,12 @@
+---
+# tasks file for its_works
+- name: test message
+  debug:
+    msg: "It works!"
+
+- name: just display
+  register: uptimeoutput
+  command: "uptime"
+
+- debug:
+    var: uptimeoutput.stdout_lines

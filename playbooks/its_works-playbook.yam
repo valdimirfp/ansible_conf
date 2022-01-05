@@ -1,0 +1,7 @@
+---
+- name: its_works - test
+  hosts: all
+  become: yes
+
+  roles:
+  - its_works

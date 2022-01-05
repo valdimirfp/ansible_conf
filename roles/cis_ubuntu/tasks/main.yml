@@ -1,0 +1,43 @@
+---
+# tasks file for cis_ubuntu
+- name: modprobe
+  register: modprobe
+  command: "modprobe -n -v cramfs"
+- debug:
+    var: modprobe.stdout_lines
+
+- name: copy cramfs.conf
+  copy:
+    src: cramfs.conf
+    dest: /etc/modprobe.d/cramfs.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: apt update
+  register: update
+  command: "apt update -y"
+
+- name: Disable IPv6 (Manual)
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    line: GRUB_CMDLINE_LINUX="ipv6.disable=1"
+    create: yes
+  notify: update-grub
+
+- name: Ensure sudo commands use pty (Automated)
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    regexp: '^ Host alias specification'
+    insertafter: '^# Host alias specification'
+    line: Defaults use_pty
+
+- name: replace sysctl.conf
+  copy:
+    src: sysctl.conf
+    dest: /etc/sysctl.conf
+    owner: root
+    group: root
+    mode: 0644
+#    become: yes
+  notify: sysctl -p

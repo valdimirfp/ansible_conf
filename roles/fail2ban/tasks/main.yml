@@ -1,0 +1,15 @@
+---
+# tasks file for fail2ban
+- name: Install fail2ban
+  ansible.builtin.package:
+    name: fail2ban
+    state: present
+
+- name: copy fail2ban local config
+  copy:
+    src: jail.local
+    dest: /etc/fail2ban/jail.local
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban

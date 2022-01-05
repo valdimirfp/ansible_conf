@@ -1,0 +1,9 @@
+---
+# handlers file for cis_ubuntu
+# update-grub
+- name: update-grub
+  command: "update-grub"
+
+# setup sysctl -p
+- name: sysctl -p
+  command: "sysctl -p"

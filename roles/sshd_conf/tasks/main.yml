@@ -1,0 +1,10 @@
+---
+# tasks file for sshd_conf
+- name: sshd_conf hardening
+  copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart ssh

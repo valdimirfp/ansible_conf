@@ -1,0 +1,9 @@
+---
+- name: docker
+  hosts: all
+  become: yes
+  vars_files:
+    - /etc/ansible/roles/docker/vars/main.yml
+
+  roles:
+  - docker

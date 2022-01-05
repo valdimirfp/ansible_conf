@@ -1,0 +1,7 @@
+---
+- name: sshd conf
+  hosts: all
+  become: yes
+
+  roles:
+  - sshd_conf
