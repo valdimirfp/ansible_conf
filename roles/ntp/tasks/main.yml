@@ -1,9 +1,6 @@
 ---
 # tasks file for ntp
 # NTP
-#- name: Set timezone to Europe/Berlin
-#  community.general.timezone:
-#    name: Europe/Berlin
 
 - name: set timezone to Europe/Berlin
   timezone:
@@ -18,12 +15,6 @@
 - name: start ntp
   service: name=ntp state=started enabled=true
 
-#- name: run Timedatectl
-#  command: timedatectl set-ntp true
-
-#- name: Turning "set-ntp" on
-#  command: /usr/bin/timedatectl set-ntp true
-
 - name: setup ntp server
   ansible.builtin.lineinfile:
     path: /etc/ntp.conf
@@ -31,5 +22,4 @@
     insertafter: '^# Specify one or more NTP servers' 
     line: 3.de.pool.ntp.org iburst
     state: present
-#    backrefs: yes
   notify: restart ntp
